@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="https://static.liqpay.ua/libjs/checkout.js"></script>
+</head>
+
+<body>
+    <div id="liqpay_checkout"></div>
+
+    <script type="text/javascript">
+        window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+            window.flutter_inappwebview.callHandler('getLiqpayData')
+                .then(function (data) {
+                    LiqPayCheckout.init({
+                        data: data.base,
+                        signature: data.signature,
+                        embedTo: "#liqpay_checkout",
+                        language: "ru",
+                        mode: "embed" // embed || popup
+                    }).on("liqpay.callback", function (data) {
+                        window.flutter_inappwebview
+                            .callHandler('liqpayCallback', JSON.stringify(data));
+                    }).on("liqpay.ready", function (data) {
+                        // console.log(data);
+                    }).on("liqpay.close", function (data) {
+                        //console.log(data.status);
+                        //console.log(data);
+                    });
+
+                    window.flutter_inappwebview
+                        .callHandler('handlerFooWithArgs', 1, true, ['bar', 5], { foo: 'baz' }, result);
+                });
+        });
+    </script>
+
+    <!-- <script type="text/javascript">
+        function checkout(base, signature) {
+            LiqPayCheckout.init({
+                data: base,
+                signature: signature,
+                embedTo: "#liqpay_checkout",
+                language: "ru",
+                mode: "embed" // embed || popup
+            }).on("liqpay.callback", function (data) {
+                messageHandler.postMessage(JSON.stringify(data));
+            }).on("liqpay.ready", function (data) {
+                // console.log(data);
+            }).on("liqpay.close", function (data) {
+                //console.log(data.status);
+                //console.log(data);
+            });
+        }
+    </script> -->
+</body>
+
+</html>
