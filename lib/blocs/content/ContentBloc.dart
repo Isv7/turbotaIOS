@@ -168,7 +168,6 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
       String orderId,
       String paymentId) async* {
     try {
-      yield ContentLoadingState();
       orderGrpc.NewOrderResponse response =
           await contentGrpcRepository.createOrder(
               burial != null ? burial.id : 0,

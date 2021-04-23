@@ -53,15 +53,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
     String _orderDescription = "";
     if (widget.order["services"] != null) {
       _amount = widget.order["services"]
-          .fold(0, (curr, next) => curr + next.price + next.comission);
+          .fold(0, (curr, next) => curr + next.price + next.commission);
       for (final service in widget.order["services"]) {
         _servicesIds.add(service.id);
         _ordered.add(service.title);
       }
     }
     if (widget.order["items"] != null) {
-      _amount =
-          widget.order["items"][0].price + widget.order["items"][0].comission;
+      _amount = widget.order["items"][0].price;
       for (final item in widget.order["items"]) {
         _itemsIds.add(item.id);
         _ordered.add(item.title);
