@@ -52,8 +52,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
         : widget.order["phone"].replaceAll(' ', '');
     String _orderDescription = "";
     if (widget.order["services"] != null) {
-      _amount = widget.order["services"]
-          .fold(0, (curr, next) => curr + next.price + next.commission);
+      _amount = widget.order["services"].fold(
+          0,
+          (curr, next) =>
+              curr + next.price + (next.price * next.commission) / 100);
       for (final service in widget.order["services"]) {
         _servicesIds.add(service.id);
         _ordered.add(service.title);

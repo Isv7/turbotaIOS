@@ -289,7 +289,9 @@ class _OrderServiceFormState extends State<OrderServiceForm> {
                           padding: EdgeInsets.only(left: scale(context, 5)),
                           child: Text(
                             (widget.services[i].price +
-                                        widget.services[i].commission)
+                                        (widget.services[i].price *
+                                                widget.services[i].commission) /
+                                            100)
                                     .toInt()
                                     .toString() +
                                 " " +
@@ -323,8 +325,10 @@ class _OrderServiceFormState extends State<OrderServiceForm> {
     for (var i = 0; i < widget.services.length; i++) {
       if (_selectedServices[i]) {
         idx++;
-        selectedPrice +=
-            (widget.services[i].price + widget.services[i].commission).toInt();
+        selectedPrice += (widget.services[i].price +
+                (widget.services[i].price * widget.services[i].commission) /
+                    100)
+            .toInt();
         selectedServicesWidgets.add(
           Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Expanded(
@@ -340,7 +344,10 @@ class _OrderServiceFormState extends State<OrderServiceForm> {
                 child: Padding(
                     padding: EdgeInsets.only(left: scale(context, 5)),
                     child: Text(
-                      (widget.services[i].price + widget.services[i].commission)
+                      (widget.services[i].price +
+                                  (widget.services[i].price *
+                                          widget.services[i].commission) /
+                                      100)
                               .toInt()
                               .toString() +
                           " " +
