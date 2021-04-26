@@ -102,6 +102,7 @@
   "Ukrainian": "Українська",
   "UserNotActive": "User is not active. Contact your administrator.",
   "UserNotExist": "User does not exist",
+  "UserAlreadyExist": "User already exist",
   "Vik": "Year of burial",
   "Vik_tooltip": "Enter the year of burial of the person you are looking for",
   "WrongPassword": "Invalid login or password",

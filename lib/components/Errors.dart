@@ -10,6 +10,7 @@ class Errors extends StatelessWidget {
   Widget build(BuildContext context) {
     var errorsWidgets = <Widget>[];
     Map<String, String> serverErrors = {
+      "User already exist": S.of(context).UserAlreadyExist,
       "Wrong password": S.of(context).WrongPassword,
       "facebook_auth_error": S.of(context).facebook_auth_error
     };

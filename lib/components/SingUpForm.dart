@@ -106,7 +106,7 @@ class _SingUpFormState extends State<SingUpForm> {
                       top: verticalScale(context, 0),
                       left: scale(context, 48.0),
                       right: scale(context, 48.0)),
-                  child: state is AuthenticationLoginErrorState
+                  child: state is AuthenticationRegisterErrorState
                       ? Errors(errors: state.message)
                       : Container()),
 
