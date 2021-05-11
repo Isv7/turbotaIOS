@@ -6,6 +6,8 @@ import 'package:app/api/v1/item.pbgrpc.dart' as itemGrpc;
 import 'package:app/providers/GRPC.dart';
 import 'package:app/api/v1/google/protobuf/empty.pb.dart';
 
+import 'package:fixnum/fixnum.dart';
+
 class ContentGrpcRepository {
   Future<regionGrpc.RegionsResponse> objects() async {
     regionGrpc.RegionsResponse response = await regionGrpc.RegionServiceClient(
@@ -27,6 +29,16 @@ class ContentGrpcRepository {
             GrpcClientSingleton().client,
             options: GrpcClientSingleton.options())
         .burialSearch(request);
+    return response;
+  }
+
+  Future<burialGrpc.BurialResponse> burial(int id) async {
+    burialGrpc.BurialRequest request = burialGrpc.BurialRequest()
+      ..id = Int64(id);
+    burialGrpc.BurialResponse response = await burialGrpc.BurialServiceClient(
+            GrpcClientSingleton().client,
+            options: GrpcClientSingleton.options())
+        .burial(request);
     return response;
   }
 

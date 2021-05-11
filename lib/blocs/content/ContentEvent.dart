@@ -39,6 +39,22 @@ class ContentSearchEvent extends ContentEvent {
   String toString() => 'Content search event';
 }
 
+class BurialRouteEvent extends ContentEvent {
+  final int id;
+
+  BurialRouteEvent({@required this.id});
+  @override
+  String toString() => 'Burial route event';
+}
+
+class LocationRouteEvent extends ContentEvent {
+  final int id;
+
+  LocationRouteEvent({@required this.id});
+  @override
+  String toString() => 'Location route event';
+}
+
 class GetObjectsEvent extends ContentEvent {
   @override
   String toString() => 'Get objects event';

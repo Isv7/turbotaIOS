@@ -2,7 +2,6 @@ import 'package:app/blocs/content/Bloc.dart';
 import 'package:app/components/Loader.dart';
 import 'package:app/config/config.dart';
 import 'package:app/generated/l10n.dart';
-import 'package:app/services/navigation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -146,9 +145,9 @@ class _BurialsScreenState extends State<BurialsScreen> {
                             color: Colors.white.withOpacity(0.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AppRouter.Location,
-                                      arguments: {"burial": item});
+                                  BlocProvider.of<ContentBloc>(context)
+                                      .add(LocationRouteEvent(id: item.id));
+
                                 },
                                 child: SvgPicture.asset(
                                     'assets/img/location.svg'))))
@@ -211,8 +210,8 @@ class _BurialsScreenState extends State<BurialsScreen> {
                         color: Colors.white.withOpacity(0.0),
                         child: InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, AppRouter.Burial,
-                                  arguments: {"burial": item});
+                              BlocProvider.of<ContentBloc>(context)
+                                  .add(BurialRouteEvent(id: item.id));
                             },
                             child: Container(
                                 alignment: Alignment.center,

@@ -43,8 +43,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
     final publicKey = "i21806530811";
     final privateKey = "UW86pfjQaYrFYzKVI7Ho3tWn1BARo4F7FJwFfjWp";
 
-    // final publicKey = "i21806530811";
-    // final privateKey = "UW86pfjQaYrFYzKVI7Ho3tWn1BARo4F7FJwFfjWp";
     final orderId = Uuid().v1();
     double _amount;
     String _phone = widget.order["phone"].replaceAll(' ', '').length > 13

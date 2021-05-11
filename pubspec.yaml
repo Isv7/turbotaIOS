@@ -67,6 +67,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.8.1
   flutter_wayforpay_package: 
     path: ./flutter_wayforpay_package
+  fixnum: ^0.10.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

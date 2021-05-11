@@ -38,6 +38,10 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
     } else if (event is ContentSearchEvent) {
       yield* mapSearchToState(event.name, event.surname, event.patronymic,
           event.year, event.cemeteryID);
+    } else if (event is BurialRouteEvent) {
+      yield* mapBurialRouteToState(event.id);
+    } else if (event is LocationRouteEvent) {
+      yield* mapLocationRouteToState(event.id);
     } else if (event is CreateOrderEvent) {
       yield* mapCreateOrderToState(
           event.burial,
@@ -103,15 +107,47 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
     }
   }
 
+  Stream<ContentState> mapBurialRouteToState(int id) async* {
+    try {
+      yield ContentLoadingState();
+      burialGrpc.BurialResponse response =
+          await contentGrpcRepository.burial(id);
+      _navigationService
+          .navigateTo(AppRouter.Burial, arguments: {"burial": response.burial});
+      yield BurialRouteState();
+    } catch (err) {
+      print(err);
+      yield ContentErrorState(code: "error", message: err.message);
+    }
+  }
+
+  Stream<ContentState> mapLocationRouteToState(int id) async* {
+    try {
+      yield ContentLoadingState();
+      burialGrpc.BurialResponse response =
+          await contentGrpcRepository.burial(id);
+      _navigationService.navigateTo(AppRouter.Location,
+          arguments: {"burial": response.burial});
+      yield LocationRouteState();
+    } catch (err) {
+      print(err);
+      yield ContentErrorState(code: "error", message: err.message);
+    }
+  }
+
   Stream<ContentState> mapCleaningRouteToState(
       burialGrpc.Burial burial) async* {
     try {
       yield ContentLoadingState();
+      burialGrpc.BurialResponse burialResponse =
+          await contentGrpcRepository.burial(burial.id);
       serviceGrpc.ServicesListResponse response = await contentGrpcRepository
           .servicesList(burial.subsector.sector.cemetery.id);
 
-      _navigationService.navigateTo(AppRouter.Cleaning,
-          arguments: {"burial": burial, "services": response.services ?? []});
+      _navigationService.navigateTo(AppRouter.Cleaning, arguments: {
+        "burial": burialResponse.burial,
+        "services": response.services ?? []
+      });
       yield CleaningRouteState();
     } catch (err) {
       print(err);
@@ -122,6 +158,8 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
   Stream<ContentState> mapPhotoRouteToState(burialGrpc.Burial burial) async* {
     try {
       yield ContentLoadingState();
+      burialGrpc.BurialResponse burialResponse =
+          await contentGrpcRepository.burial(burial.id);
       serviceGrpc.ServicesListResponse response = await contentGrpcRepository
           .servicesList(burial.subsector.sector.cemetery.id);
       for (var i = 0; i < response.services.length; i++) {
@@ -129,8 +167,10 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
           response.services[i].selected = false;
         }
       }
-      _navigationService.navigateTo(AppRouter.MediaOrder,
-          arguments: {"burial": burial, "services": response.services ?? []});
+      _navigationService.navigateTo(AppRouter.MediaOrder, arguments: {
+        "burial": burialResponse.burial,
+        "services": response.services ?? []
+      });
       yield CleaningRouteState();
     } catch (err) {
       print(err);
@@ -142,11 +182,15 @@ class ContentBloc extends Bloc<ContentEvent, ContentState> {
       burialGrpc.Burial burial) async* {
     try {
       yield ContentLoadingState();
+      burialGrpc.BurialResponse burialResponse =
+          await contentGrpcRepository.burial(burial.id);
       serviceGrpc.ServicesListResponse response = await contentGrpcRepository
           .servicesList(burial.subsector.sector.cemetery.id);
 
-      _navigationService.navigateTo(AppRouter.Services,
-          arguments: {"burial": burial, "services": response.services ?? []});
+      _navigationService.navigateTo(AppRouter.Services, arguments: {
+        "burial": burialResponse.burial,
+        "services": response.services ?? []
+      });
       yield ServicesRouteState();
     } catch (err) {
       print(err);

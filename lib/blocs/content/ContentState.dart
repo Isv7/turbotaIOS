@@ -36,6 +36,16 @@ class BurialsResultsState extends ContentState {
   String toString() => 'Burials results state';
 }
 
+class BurialRouteState extends ContentState {
+  @override
+  String toString() => 'Burial route state';
+}
+
+class LocationRouteState extends ContentState {
+  @override
+  String toString() => 'Location route state';
+}
+
 class CleaningRouteState extends ContentState {
   @override
   String toString() => 'Cleaning route state';
