@@ -1065,6 +1065,16 @@ class S {
     );
   }
 
+  /// `User already exist`
+  String get UserAlreadyExist {
+    return Intl.message(
+      'User already exist',
+      name: 'UserAlreadyExist',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Year of burial`
   String get Vik {
     return Intl.message(

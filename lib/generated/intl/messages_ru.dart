@@ -127,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Title" : MessageLookupByLibrary.simpleMessage("Назва"),
     "UAH" : MessageLookupByLibrary.simpleMessage("грн."),
     "Ukrainian" : MessageLookupByLibrary.simpleMessage("Українська"),
+    "UserAlreadyExist" : MessageLookupByLibrary.simpleMessage("Пользователь уже существует"),
     "UserNotActive" : MessageLookupByLibrary.simpleMessage("Пользователь не активен. Обратитесь к администратору."),
     "UserNotExist" : MessageLookupByLibrary.simpleMessage("Пользователь не существует"),
     "Vik" : MessageLookupByLibrary.simpleMessage("Год захоронения"),
