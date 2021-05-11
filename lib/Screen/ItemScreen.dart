@@ -219,7 +219,6 @@ class _ItemScreenState extends State<ItemScreen> {
                       builder: (context, state) {
                     return Padding(
                       padding: EdgeInsets.only(
-                          top: verticalScale(context, 44.0),
                           left: scale(context, 30.0),
                           right: scale(context, 30.0),
                           bottom: scale(context, 20.0)),
