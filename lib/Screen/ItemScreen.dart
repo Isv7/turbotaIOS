@@ -206,7 +206,7 @@ class _ItemScreenState extends State<ItemScreen> {
                                         right: scale(context, 8.0),
                                       ),
                                       child: Text(
-                                        S.of(context).Description,
+                                        widget.item.description,
                                         style: TextStyle(
                                             fontSize: 9,
                                             color: Color(0xFF351916)
