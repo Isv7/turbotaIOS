@@ -120,8 +120,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
           initialFile: "assets/payment.html",
           initialHeaders: {},
           initialOptions: InAppWebViewGroupOptions(
-            crossPlatform:
-                InAppWebViewOptions(debuggingEnabled: true, supportZoom: false),
+            crossPlatform: InAppWebViewOptions(
+                debuggingEnabled: false, supportZoom: false),
           ),
           onWebViewCreated: (InAppWebViewController controller) {
             _webViewController = controller;
@@ -164,6 +164,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
           },
           onLoadStart: (InAppWebViewController controller, String url) {},
           onLoadStop: (InAppWebViewController controller, String url) {},
+          onConsoleMessage: (controller, consoleMessage) {
+            print(consoleMessage);
+          },
         ),
         Loader()
       ]),
