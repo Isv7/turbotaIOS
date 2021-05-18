@@ -1,4 +1,5 @@
 import 'package:app/api/v1/item.pb.dart';
+import 'package:app/components/SliverGridDelegateFixedHeight.dart';
 import 'package:app/config/config.dart';
 import 'package:app/generated/l10n.dart';
 import 'package:app/services/navigation.dart';
@@ -49,16 +50,19 @@ class _ItemsScreenState extends State<ItemsScreen> {
                       child: GridView.builder(
                           padding: EdgeInsets.all(5),
                           gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200,
-                                  childAspectRatio:
+                              SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                                  crossAxisCount:
                                       MediaQuery.of(context).size.aspectRatio >
                                               1
-                                          ? 1 / 1.4
-                                          : scale(context, 165) /
-                                              verticalScale(context, 265),
+                                          ? 3
+                                          : 2,
                                   crossAxisSpacing: 15,
-                                  mainAxisSpacing: 15),
+                                  mainAxisSpacing: 15,
+                                  height:
+                                      MediaQuery.of(context).size.aspectRatio >
+                                              1
+                                          ? verticalScale(context, 470)
+                                          : verticalScale(context, 260)),
                           itemCount: widget.items.length,
                           itemBuilder: (BuildContext ctx, index) {
                             return Material(
