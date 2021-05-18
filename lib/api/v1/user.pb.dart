@@ -35,6 +35,7 @@ class User extends $pb.GeneratedMessage {
     ..aOS(20, 'legalPhone')
     ..pc<UserFile>(21, 'files', $pb.PbFieldType.PM, subBuilder: UserFile.create)
     ..pc<$0.ItemImage>(22, 'uploadImages', $pb.PbFieldType.PM, subBuilder: $0.ItemImage.create)
+    ..aOS(23, 'viberId')
     ..hasRequiredFields = false
   ;
 
@@ -238,6 +239,15 @@ class User extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(22)
   $core.List<$0.ItemImage> get uploadImages => $_getList(21);
+
+  @$pb.TagNumber(23)
+  $core.String get viberId => $_getSZ(22);
+  @$pb.TagNumber(23)
+  set viberId($core.String v) { $_setString(22, v); }
+  @$pb.TagNumber(23)
+  $core.bool hasViberId() => $_has(22);
+  @$pb.TagNumber(23)
+  void clearViberId() => clearField(23);
 }
 
 class UserFile extends $pb.GeneratedMessage {
@@ -732,6 +742,7 @@ class AdminEditUserRequest extends $pb.GeneratedMessage {
     ..aOB(9, 'canSell')
     ..aOB(10, 'active')
     ..aOS(11, 'liqpayKey')
+    ..aOS(12, 'viberId')
     ..hasRequiredFields = false
   ;
 
@@ -848,6 +859,15 @@ class AdminEditUserRequest extends $pb.GeneratedMessage {
   $core.bool hasLiqpayKey() => $_has(10);
   @$pb.TagNumber(11)
   void clearLiqpayKey() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get viberId => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set viberId($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasViberId() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearViberId() => clearField(12);
 }
 
 class AdminDeleteUserRequest extends $pb.GeneratedMessage {

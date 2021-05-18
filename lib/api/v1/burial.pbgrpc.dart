@@ -75,6 +75,11 @@ class BurialServiceClient extends $grpc.Client {
       ($7.AdminNewBurialSetStateRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $7.AdminNewBurialResponse.fromBuffer(value));
+  static final _$burial =
+      $grpc.ClientMethod<$7.BurialRequest, $7.BurialResponse>(
+          '/v1.BurialService/Burial',
+          ($7.BurialRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $7.BurialResponse.fromBuffer(value));
 
   BurialServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
@@ -165,6 +170,13 @@ class BurialServiceClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$adminNewBurialSetState, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$7.BurialResponse> burial($7.BurialRequest request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(_$burial, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -263,6 +275,13 @@ abstract class BurialServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $7.AdminNewBurialSetStateRequest.fromBuffer(value),
         ($7.AdminNewBurialResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$7.BurialRequest, $7.BurialResponse>(
+        'Burial',
+        burial_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $7.BurialRequest.fromBuffer(value),
+        ($7.BurialResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$7.AdminBurialsResponse> adminBurials_Pre(
@@ -323,6 +342,11 @@ abstract class BurialServiceBase extends $grpc.Service {
     return adminNewBurialSetState(call, await request);
   }
 
+  $async.Future<$7.BurialResponse> burial_Pre(
+      $grpc.ServiceCall call, $async.Future<$7.BurialRequest> request) async {
+    return burial(call, await request);
+  }
+
   $async.Future<$7.AdminBurialsResponse> adminBurials(
       $grpc.ServiceCall call, $7.AdminBurialsRequest request);
   $async.Future<$7.AdminBurialResponse> adminBurial(
@@ -343,4 +367,6 @@ abstract class BurialServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $7.AdminNewEditBurialRequest request);
   $async.Future<$7.AdminNewBurialResponse> adminNewBurialSetState(
       $grpc.ServiceCall call, $7.AdminNewBurialSetStateRequest request);
+  $async.Future<$7.BurialResponse> burial(
+      $grpc.ServiceCall call, $7.BurialRequest request);
 }

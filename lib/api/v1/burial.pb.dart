@@ -1034,6 +1034,37 @@ class AdminNewBurialSetStateRequest extends $pb.GeneratedMessage {
   void clearId() => clearField(2);
 }
 
+class BurialRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('BurialRequest', package: const $pb.PackageName('v1'), createEmptyInstance: create)
+    ..a<$fixnum.Int64>(1, 'id', $pb.PbFieldType.OU6, defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false
+  ;
+
+  BurialRequest._() : super();
+  factory BurialRequest() => create();
+  factory BurialRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory BurialRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  BurialRequest clone() => BurialRequest()..mergeFromMessage(this);
+  BurialRequest copyWith(void Function(BurialRequest) updates) => super.copyWith((message) => updates(message as BurialRequest));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BurialRequest create() => BurialRequest._();
+  BurialRequest createEmptyInstance() => create();
+  static $pb.PbList<BurialRequest> createRepeated() => $pb.PbList<BurialRequest>();
+  @$core.pragma('dart2js:noInline')
+  static BurialRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BurialRequest>(create);
+  static BurialRequest _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $fixnum.Int64 get id => $_getI64(0);
+  @$pb.TagNumber(1)
+  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
 class AdminBurialsResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AdminBurialsResponse', package: const $pb.PackageName('v1'), createEmptyInstance: create)
     ..pc<Burial>(1, 'burials', $pb.PbFieldType.PM, subBuilder: Burial.create)
@@ -1207,6 +1238,39 @@ class AdminNewBurialResponse extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static AdminNewBurialResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AdminNewBurialResponse>(create);
   static AdminNewBurialResponse _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Burial get burial => $_getN(0);
+  @$pb.TagNumber(1)
+  set burial(Burial v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasBurial() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearBurial() => clearField(1);
+  @$pb.TagNumber(1)
+  Burial ensureBurial() => $_ensure(0);
+}
+
+class BurialResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('BurialResponse', package: const $pb.PackageName('v1'), createEmptyInstance: create)
+    ..aOM<Burial>(1, 'burial', subBuilder: Burial.create)
+    ..hasRequiredFields = false
+  ;
+
+  BurialResponse._() : super();
+  factory BurialResponse() => create();
+  factory BurialResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory BurialResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  BurialResponse clone() => BurialResponse()..mergeFromMessage(this);
+  BurialResponse copyWith(void Function(BurialResponse) updates) => super.copyWith((message) => updates(message as BurialResponse));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static BurialResponse create() => BurialResponse._();
+  BurialResponse createEmptyInstance() => create();
+  static $pb.PbList<BurialResponse> createRepeated() => $pb.PbList<BurialResponse>();
+  @$core.pragma('dart2js:noInline')
+  static BurialResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<BurialResponse>(create);
+  static BurialResponse _defaultInstance;
 
   @$pb.TagNumber(1)
   Burial get burial => $_getN(0);

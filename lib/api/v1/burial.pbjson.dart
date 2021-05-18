@@ -150,6 +150,13 @@ const AdminNewBurialSetStateRequest$json = const {
   ],
 };
 
+const BurialRequest$json = const {
+  '1': 'BurialRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 4, '10': 'id'},
+  ],
+};
+
 const AdminBurialsResponse$json = const {
   '1': 'AdminBurialsResponse',
   '2': const [
@@ -189,6 +196,13 @@ const AdminNewBurialsResponse$json = const {
 
 const AdminNewBurialResponse$json = const {
   '1': 'AdminNewBurialResponse',
+  '2': const [
+    const {'1': 'burial', '3': 1, '4': 1, '5': 11, '6': '.v1.Burial', '10': 'burial'},
+  ],
+};
+
+const BurialResponse$json = const {
+  '1': 'BurialResponse',
   '2': const [
     const {'1': 'burial', '3': 1, '4': 1, '5': 11, '6': '.v1.Burial', '10': 'burial'},
   ],

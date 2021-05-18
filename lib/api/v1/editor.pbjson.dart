@@ -26,6 +26,7 @@ const EditorEditProfileRequest$json = const {
     const {'1': 'mfo', '3': 16, '4': 1, '5': 9, '10': 'mfo'},
     const {'1': 'bank', '3': 17, '4': 1, '5': 9, '10': 'bank'},
     const {'1': 'legal_phone', '3': 18, '4': 1, '5': 9, '10': 'legalPhone'},
+    const {'1': 'viber_id', '3': 19, '4': 1, '5': 9, '10': 'viberId'},
   ],
 };
 

@@ -30,6 +30,7 @@ const User$json = const {
     const {'1': 'legal_phone', '3': 20, '4': 1, '5': 9, '10': 'legalPhone'},
     const {'1': 'files', '3': 21, '4': 3, '5': 11, '6': '.v1.UserFile', '10': 'files'},
     const {'1': 'upload_images', '3': 22, '4': 3, '5': 11, '6': '.v1.ItemImage', '10': 'uploadImages'},
+    const {'1': 'viber_id', '3': 23, '4': 1, '5': 9, '10': 'viberId'},
   ],
 };
 
@@ -130,6 +131,7 @@ const AdminEditUserRequest$json = const {
     const {'1': 'can_sell', '3': 9, '4': 1, '5': 8, '10': 'canSell'},
     const {'1': 'active', '3': 10, '4': 1, '5': 8, '10': 'active'},
     const {'1': 'liqpay_key', '3': 11, '4': 1, '5': 9, '10': 'liqpayKey'},
+    const {'1': 'viber_id', '3': 12, '4': 1, '5': 9, '10': 'viberId'},
   ],
 };
 

@@ -36,6 +36,7 @@ class EditorEditProfileRequest extends $pb.GeneratedMessage {
     ..aOS(16, 'mfo')
     ..aOS(17, 'bank')
     ..aOS(18, 'legalPhone')
+    ..aOS(19, 'viberId')
     ..hasRequiredFields = false
   ;
 
@@ -215,6 +216,15 @@ class EditorEditProfileRequest extends $pb.GeneratedMessage {
   $core.bool hasLegalPhone() => $_has(17);
   @$pb.TagNumber(18)
   void clearLegalPhone() => clearField(18);
+
+  @$pb.TagNumber(19)
+  $core.String get viberId => $_getSZ(18);
+  @$pb.TagNumber(19)
+  set viberId($core.String v) { $_setString(18, v); }
+  @$pb.TagNumber(19)
+  $core.bool hasViberId() => $_has(18);
+  @$pb.TagNumber(19)
+  void clearViberId() => clearField(19);
 }
 
 class EditorBurialsRequest extends $pb.GeneratedMessage {
