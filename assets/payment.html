@@ -20,12 +20,16 @@
                         language: "ru",
                         mode: "embed" // embed || popup
                     }).on("liqpay.callback", function (data) {
+                        alert("liqpay.callback", data);
                         console.log("liqpay.callback", data);
                         window.flutter_inappwebview
                             .callHandler('liqpayCallback', JSON.stringify(data));
                     }).on("liqpay.ready", function (data) {
+                        alert("liqpay.ready", data);
                         console.log("liqpay.ready", data);
                     }).on("liqpay.close", function (data) {
+                        alert(data.status);
+                        alert("liqpay.close", data);
                         console.log(data.status);
                         console.log("liqpay.close", data);
                     });
