@@ -170,6 +170,7 @@ class _OrderServiceFormState extends State<OrderServiceForm> {
         _checkSubmit();
       }
     });
+    phoneController.addListener(onValueChange);
   }
 
   @override
@@ -179,7 +180,15 @@ class _OrderServiceFormState extends State<OrderServiceForm> {
     _phoneFocusNode.dispose();
     _emailFocusNode.dispose();
     _commentFocusNode.dispose();
+    phoneController.dispose();
     super.dispose();
+  }
+
+  onValueChange() {
+    if (phoneController.selection.start < 0) {
+      phoneController.selection = new TextSelection.fromPosition(
+          new TextPosition(offset: phoneController.text.length));
+    }
   }
 
   _checkSubmit() {
