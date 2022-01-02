@@ -4,15 +4,18 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:app/components/BottomNavbar.dart';
+import 'package:app/repositories/OsrmRepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+//import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import 'package:app/config/config.dart';
 import 'package:app/generated/l10n.dart';
+
+//https://medium.com/flutter-community/flutter-creating-a-route-calculator-using-google-maps-71699dd96fb9
 
 const String googleAPIKey = "AIzaSyC1nSCk-3xWazB4MDcTM0BpAlYIC03o-lA";
 const double CAMERA_ZOOM = 14;
@@ -41,7 +44,7 @@ class _LocationScreenState extends State<LocationScreen> {
   BitmapDescriptor pinLocationIcon;
   BitmapDescriptor pinTextLocationIcon;
   BitmapDescriptor rowsTextLocationIcon;
-  PolylinePoints polylinePoints;
+  //PolylinePoints polylinePoints;
   List<LatLng> polylineCoordinates = List<LatLng>();
   Map<PolylineId, Polyline> _polylines = {};
   Set<Polygon> _polygons = HashSet<Polygon>();
@@ -49,6 +52,7 @@ class _LocationScreenState extends State<LocationScreen> {
   List<LatLng> _polylineSectorEnterLatLngs = List<LatLng>();
   String mode = "locations";
   bool mapReady = false;
+  OsrmRepository _osrmRepository = OsrmRepository();
 
   final Map<String, Marker> _markers = {};
   Location location = new Location();
@@ -83,10 +87,10 @@ class _LocationScreenState extends State<LocationScreen> {
       destinationLocation = LatLng(widget.burial.coordinates[0].latitude,
           widget.burial.coordinates[0].longitude);
     }
-    polylinePoints = PolylinePoints();
+    //polylinePoints = PolylinePoints();
     location.onLocationChanged.listen((LocationData currentLocation) {
       this.currentLocation = currentLocation;
-      _setPolylines();
+      //_setPolylines();
     });
     _setPolygon();
     _setSubsectorEnterPolylines();
@@ -187,36 +191,36 @@ class _LocationScreenState extends State<LocationScreen> {
     return BitmapDescriptor.fromBytes(data);
   }
 
-  void _setPolylines() async {
-    if (destinationLocation != null) {
-      try {
-        PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-            googleAPIKey,
-            PointLatLng(currentLocation.latitude, currentLocation.longitude),
-            PointLatLng(
-                destinationLocation.latitude, destinationLocation.longitude));
+  // void _setPolylines() async {
+  //   if (destinationLocation != null) {
+  //     try {
+  //             PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //                 googleAPIKey,
+  //                 PointLatLng(currentLocation.latitude, currentLocation.longitude),
+  //                 PointLatLng(
+  //                     destinationLocation.latitude, destinationLocation.longitude));
 
-        if (result.points.isNotEmpty) {
-          polylineCoordinates.clear();
-          result.points.forEach((PointLatLng point) {
-            polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-          });
-          polylineCoordinates.add(LatLng(
-              destinationLocation.latitude, destinationLocation.longitude));
+  //             if (result.points.isNotEmpty) {
+  //               polylineCoordinates.clear();
+  //               result.points.forEach((PointLatLng point) {
+  //                 polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //               });
+  //               polylineCoordinates.add(LatLng(
+  //                   destinationLocation.latitude, destinationLocation.longitude));
 
-          setState(() {
-            _polylines[PolylineId("poly")] = Polyline(
-                width: 2,
-                polylineId: PolylineId("poly"),
-                color: Color(0xFFD76701),
-                points: polylineCoordinates);
-          });
-        }
-      } catch (err) {
-        print(err);
-      }
-    }
-  }
+  //               setState(() {
+  //                 _polylines[PolylineId("poly")] = Polyline(
+  //                     width: 2,
+  //                     polylineId: PolylineId("poly"),
+  //                     color: Color(0xFFD76701),
+  //                     points: polylineCoordinates);
+  //               });
+  //             }
+  //     } catch (err) {
+  //       print(err);
+  //     }
+  //   }
+  // }
 
   void _onMapCreated(GoogleMapController controller) async {
     _controller.complete(controller);
@@ -244,20 +248,47 @@ class _LocationScreenState extends State<LocationScreen> {
 
 // Method for retrieving the current location
   _getCurrentLocation() async {
-    currentLocation = await location.getLocation();
-    // For moving the camera to current location
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          tilt: CAMERA_TILT,
-          bearing: CAMERA_BEARING,
-          zoom: CAMERA_ZOOM,
-          target: LatLng(currentLocation.latitude, currentLocation.longitude),
+    try {
+      currentLocation = await location.getLocation();
+      final res = await _osrmRepository.getRoad({
+        "latitude": currentLocation.latitude.toString(),
+        "longitude": currentLocation.longitude.toString()
+      }, {
+        "latitude": destinationLocation.latitude.toString(),
+        "longitude": destinationLocation.longitude.toString()
+      });
+      List<LatLng> road = [
+        LatLng(currentLocation.latitude, currentLocation.longitude)
+      ];
+      road.addAll(
+          res["road"].map<LatLng>((item) => LatLng(item[1], item[0])).toList());
+      road.add(
+          LatLng(destinationLocation.latitude, destinationLocation.longitude));
+
+      setState(() {
+        _polylines[PolylineId("custom")] = Polyline(
+            width: 2,
+            polylineId: PolylineId("custom"),
+            color: Color(0xFFD76701),
+            points: road);
+      });
+
+      // For moving the camera to current location
+      final GoogleMapController controller = await _controller.future;
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            tilt: CAMERA_TILT,
+            bearing: CAMERA_BEARING,
+            zoom: CAMERA_ZOOM,
+            target: LatLng(currentLocation.latitude, currentLocation.longitude),
+          ),
         ),
-      ),
-    );
-    _setPolylines();
+      );
+      //_setPolylines();
+    } catch (err) {
+      print(err);
+    }
   }
 
   @override
