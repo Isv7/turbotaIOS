@@ -6,14 +6,12 @@ import 'package:app/components/Errors.dart';
 import 'package:app/config/config.dart';
 import 'package:app/generated/l10n.dart';
 import 'package:app/components/FormTemplate.dart';
-import 'package:app/services/way_for_pay.dart';
 import '../services/custom_icons.dart';
 import 'package:app/services/navigation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:flutter_wayforpay_package/model/wayforpay_response.dart';
 import 'package:expandable/expandable.dart';
 import 'dart:math';
 import 'package:flutter_svg/svg.dart';

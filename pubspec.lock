@@ -184,7 +184,7 @@ packages:
     source: hosted
     version: "0.2.0"
   fixnum:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: fixnum
       url: "https://pub.dartlang.org"
@@ -225,6 +225,27 @@ packages:
       url: "https://github.com/yasseralsamman/flutter-cupertino-date-picker.git"
     source: git
     version: "1.0.26+2"
+  flutter_facebook_auth:
+    dependency: "direct dev"
+    description:
+      name: flutter_facebook_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2+1"
+  flutter_facebook_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  flutter_facebook_auth_web:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   flutter_inappwebview:
     dependency: "direct dev"
     description:
@@ -284,13 +305,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_wayforpay_package:
-    dependency: "direct dev"
-    description:
-      path: flutter_wayforpay_package
-      relative: true
-    source: path
-    version: "0.0.2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -415,13 +429,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  mask_text_input_formatter:
-    dependency: transitive
-    description:
-      name: mask_text_input_formatter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.1"
   matcher:
     dependency: transitive
     description:

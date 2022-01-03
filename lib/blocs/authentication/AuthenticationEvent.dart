@@ -35,8 +35,7 @@ class AuthenticationLogInEvent extends AuthenticationEvent {
 }
 
 class AuthenticationFacebookSignInEvent extends AuthenticationEvent {
-  final String facebookSignInResult;
-  AuthenticationFacebookSignInEvent({@required this.facebookSignInResult});
+  AuthenticationFacebookSignInEvent();
 
   @override
   String toString() => 'Authentication facebook sign in event';

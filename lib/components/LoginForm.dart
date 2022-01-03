@@ -42,19 +42,8 @@ class _LoginFormState extends State<LoginForm> {
   final _phoneFocusNode = FocusNode();
 
   loginWithFacebook() async {
-    String your_client_id = "365195554897586";
-    String your_redirect_url =
-        "https://www.facebook.com/connect/login_success.html";
-    String result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => FacebookWebViewScreen(
-                  selectedUrl:
-                      'https://www.facebook.com/dialog/oauth?client_id=$your_client_id&redirect_uri=$your_redirect_url&response_type=token&scope=email,public_profile,',
-                ),
-            maintainState: true));
     BlocProvider.of<AuthenticationBloc>(context)
-        .add(AuthenticationFacebookSignInEvent(facebookSignInResult: result));
+        .add(AuthenticationFacebookSignInEvent());
   }
 
   @override

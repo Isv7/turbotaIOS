@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'package:app/services/navigation.dart';
 import 'package:app/blocs/app/AppBloc.dart';
@@ -48,7 +49,7 @@ class AuthenticationBloc
     } else if (event is AuthenticationLogInEvent) {
       yield* mapLoggedInToState(event.login, event.password);
     } else if (event is AuthenticationFacebookSignInEvent) {
-      yield* mapFacebookSignInToState(event.facebookSignInResult);
+      yield* mapFacebookSignInToState();
     } else if (event is AuthenticationAppleSignInEvent) {
       yield* mapAppleSignInToState();
     } else if (event is AuthenticationLoadingEvent) {
@@ -94,8 +95,7 @@ class AuthenticationBloc
       _navigationService.resetTo(AppRouter.Search);
     } catch (err) {
       print(err);
-            _navigationService.resetTo(AppRouter.Search);
-      //_navigationService.resetTo(AppRouter.First);
+      _navigationService.resetTo(AppRouter.First);
     }
   }
 
@@ -118,32 +118,35 @@ class AuthenticationBloc
     }
   }
 
-  Stream<AuthenticationState> mapFacebookSignInToState(
-      String facebookSignInResult) async* {
+  Stream<AuthenticationState> mapFacebookSignInToState() async* {
     yield AuthenticationLoading();
-    if (facebookSignInResult != null) {
-      try {
+    try {
+      final _instance = FacebookAuth.instance;
+      final result =
+          await _instance.login(permissions: ['email', 'public_profile']);
+      if (result.token != null) {
         final facebookAuthCred =
-            firebaseAuth.FacebookAuthProvider.credential(facebookSignInResult);
+            firebaseAuth.FacebookAuthProvider.credential(result.token);
         final firebaseAuth.User user =
             (await _auth.signInWithCredential(facebookAuthCred)).user;
         final token = await user.getIdToken();
-        userGrpc.UserResponse response = await userGrpcRepository
-            .facebookSignIn(user.displayName, user.email, user.uid, token);
+        userGrpc.UserResponse response =
+            await userGrpcRepository.facebookSignIn(
+                user.displayName, user.email ?? "", user.uid, token);
         this.name = response.user.name;
         this.phone = response.user.phone;
         storageRepository.saveUser(User(response.user.name, response.user.phone,
             response.user.firebaseId, response.token));
         yield Authenticated();
         _navigationService.resetTo(AppRouter.Search);
-      } catch (err) {
-        print(err);
+      } else {
         yield AuthenticationLoginErrorState(
-            code: err.code.toString(), message: err.message);
+            code: "facebook_auth_error", message: "facebook_auth_error");
       }
-    } else {
+    } catch (err) {
+      print(err);
       yield AuthenticationLoginErrorState(
-          code: "facebook_auth_error", message: "facebook_auth_error");
+          code: err.code.toString(), message: err.message);
     }
   }
 

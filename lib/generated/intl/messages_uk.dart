@@ -74,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Name" : MessageLookupByLibrary.simpleMessage("Ім\'я"),
     "Name_tooltip" : MessageLookupByLibrary.simpleMessage("Введіть ім\'я того кого ви шукаєте"),
     "NewUser" : MessageLookupByLibrary.simpleMessage("Ви ще не зареєстровані?"),
-    "NotAvailable" : MessageLookupByLibrary.simpleMessage("Under the order"),
+    "NotAvailable" : MessageLookupByLibrary.simpleMessage("Під замовлення"),
     "Obekt" : MessageLookupByLibrary.simpleMessage("Об\'єкт"),
     "Obekt_tooltip" : MessageLookupByLibrary.simpleMessage("Введіть об\'єкт біля якого ви зараз знаходитесь"),
     "Oblast" : MessageLookupByLibrary.simpleMessage("Область"),
